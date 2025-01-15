@@ -1,4 +1,6 @@
 const User = require('../models/user.js');
+const Enrollment = require('../models/enrollment.js');
+const Course = require('../models/course.js');
 const moment = require('moment-timezone');
 
 const createUser = async (req, res) => {
@@ -32,22 +34,44 @@ const createUser = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const user = await User.findByPk(req.params.id);
+    const user = await User.findByPk(req.params.id, {
+      include: [
+        {
+          model: Enrollment, as: 'Enrollments',
+          include: [
+            {
+              model: Course, 
+              as: 'EnrolledCourse'
+            }
+          ]
+        }
+      ]
+    });
+
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    //fuso horário do cliente
     const clientTimezone = req.query.timezone || 'UTC';
     const adjustedCreatedAt = moment(user.created_at).tz(clientTimezone).format('YYYY-MM-DD, HH:mm:ss');
     
+    const enrollments = user.Enrollments.map(enrollment => ({
+      id: enrollment.id,
+      course: {
+        id: enrollment.EnrolledCourse.id,
+        name: enrollment.EnrolledCourse.title,
+      },
+      enrolled_at: moment(enrollment.enrolled_at).tz(clientTimezone).format('YYYY-MM-DD, HH:mm:ss'),
+    }));
+
     res.json({ 
       id: user.id,
       name: user.name,
       email: user.email,
       created_at: adjustedCreatedAt,
-      message: "User data retrieved successively."
-     });
+      enrollments: enrollments,
+      message: "User data retrieved successfully."
+    });
   } catch (error) {
     res.status(500).json({ 
       error: "Internal server error." ,
