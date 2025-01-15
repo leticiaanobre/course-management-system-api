@@ -12,6 +12,20 @@ const createEnrollment = async (req, res) => {
       });
     }
 
+    const ExistingEnrollment = await Enrollment.findOne({
+      where: {user_id, course_id}
+    })
+
+    if(ExistingEnrollment) {
+      return res.status(409).json({
+        error: 'User already enrolled in this course.',
+        details: {
+          enrollment_id: ExistingEnrollment.id,
+          enrolled_at: moment(ExistingEnrollment.enrolled_at).format()
+        }
+      })
+    }
+
     const enrollment = await Enrollment.create(req.body);
 
     res.status(201).json({
