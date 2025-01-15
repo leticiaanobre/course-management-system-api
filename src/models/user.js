@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const { Sequelize } = require('sequelize');
 const config = require('../config/database.js')
 const Course = require('./course.js'); 
+const Enrollment = require('./enrollment.js'); 
 
 const environment = process.env.NODE_ENV || 'development';
 const sequelize = new Sequelize(config[environment]);
