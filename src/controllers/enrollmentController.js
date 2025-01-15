@@ -68,7 +68,11 @@ const getUserEnrollments = async (req, res) => {
     const adjustedEnrollments = enrollments.map(enrollment => ({
       id: enrollment.id,
       user_id: enrollment.user_id,
-      course: enrollment.Course, 
+      course: {
+        id: enrollment.Course.id,
+        title: enrollment.Course.title,
+        created_at: moment(enrollment.Course.created_at).format('YYYY-MM-DD, HH:mm:ss')
+      }, 
       enrolled_at: moment(enrollment.enrolled_at).tz(clientTimezone).format('YYYY-MM-DD, HH:mm:ss'),
     }));
     res.json(adjustedEnrollments);
