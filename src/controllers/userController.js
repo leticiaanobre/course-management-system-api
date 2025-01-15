@@ -43,13 +43,16 @@ const getUser = async (req, res) => {
     
     res.json({ 
       id: user.id,
-      name: user.email,
+      name: user.name,
       email: user.email,
       created_at: adjustedCreatedAt,
-      message: "User data retrived successively."
+      message: "User data retrieved successively."
      });
   } catch (error) {
-    res.status(500).json({ error: "Internal server error." });
+    res.status(500).json({ 
+      error: "Internal server error." ,
+      details: error.message
+    });
   }
 };
 
