@@ -34,7 +34,7 @@ const createEnrollment = async (req, res) => {
         id: enrollment.id,
         user_id: enrollment.user_id,
         course_id: enrollment.course_id,
-        enrolled_at: moment(enrollment.created_at).format(),
+        enrolled_at: moment(enrollment.created_at).format('YYYY-MM-DD, HH:mm:ss'),
       },
     });
   } catch (error) {
@@ -69,7 +69,7 @@ const getUserEnrollments = async (req, res) => {
       id: enrollment.id,
       user_id: enrollment.user_id,
       course: enrollment.Course, 
-      enrolled_at: moment(enrollment.enrolled_at).tz(clientTimezone).format(),
+      enrolled_at: moment(enrollment.enrolled_at).tz(clientTimezone).format('YYYY-MM-DD, HH:mm:ss'),
     }));
     res.json(adjustedEnrollments);
   } catch (error) {

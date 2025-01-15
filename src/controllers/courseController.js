@@ -18,7 +18,7 @@ const createCourse = async (req, res) => {
         title: course.title,
         description: course.description,
         hours: course.hours,
-        created_at: moment(course.created_at).format(),
+        created_at: moment(course.created_at).format('YYYY-MM-DD, HH:mm:ss'),
       }
     });
   } catch (error) {
@@ -39,7 +39,7 @@ const getCourses = async (req, res) => {
     const clientTimezone = req.query.timezone || 'UTC';
     const adjustedCourses = courses.map(course => ({
       ...course.toJSON(),
-      created_at: moment(course.created_at).tz(clientTimezone).format(),
+      created_at: moment(course.created_at).tz(clientTimezone).format('YYYY-MM-DD, HH:mm:ss'),
     }));
     res.json(adjustedCourses);
   } catch (error) {

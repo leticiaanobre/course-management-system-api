@@ -39,7 +39,7 @@ const getUser = async (req, res) => {
 
     //fuso horário do cliente
     const clientTimezone = req.query.timezone || 'UTC';
-    const adjustedCreatedAt = moment(user.created_at).tz(clientTimezone).format();
+    const adjustedCreatedAt = moment(user.created_at).tz(clientTimezone).format('YYYY-MM-DD, HH:mm:ss');
     
     res.json({ 
       id: user.id,
