@@ -43,7 +43,7 @@ const getUserEnrollments = async (req, res) => {
 
     const enrollments = await Enrollment.findAll({
       where: { user_id: req.params.userId },
-      include: [{ model: Course }],
+      include: [{ model: Course, as: 'Course' }],
     });
 
     if (enrollments.length === 0) {

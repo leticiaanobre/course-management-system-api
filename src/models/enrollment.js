@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const config = require('../config/database.js');
 const { Sequelize } = require('sequelize');
+const Course = require('./course.js'); 
 
 const environment = process.env.NODE_ENV || 'development';
 const sequelize = new Sequelize(config[environment]);
@@ -33,5 +34,7 @@ Enrollment.init({
   modelName: 'Enrollment',
   timestamps: false
 });
+
+Enrollment.belongsTo(Course, { foreignKey: 'course_id', as: 'Course' });
 
 module.exports = Enrollment;
