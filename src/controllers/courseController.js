@@ -43,7 +43,10 @@ const getCourses = async (req, res) => {
     }));
     res.json(adjustedCourses);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({
+      error: 'Internal server error.',
+      details: error.message,
+    });
   }
 };
 
