@@ -80,7 +80,59 @@ const getUser = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({
+      include: [
+        {
+          model: Enrollment, 
+          as: 'Enrollments',
+          include: [
+            {
+              model: Course, 
+              as: 'EnrolledCourse' 
+            }
+          ]
+        }
+      ]
+    });
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({ error: 'No users found' });
+    }
+
+    const clientTimezone = req.query.timezone || 'UTC';
+
+    const usersData = users.map(user => ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      created_at: moment(user.created_at).tz(clientTimezone).format('YYYY-MM-DD, HH:mm:ss'),
+      enrollments: user.Enrollments.map(enrollment => ({
+        id: enrollment.id,
+        course: {
+          id: enrollment.EnrolledCourse.id,
+          name: enrollment.EnrolledCourse.title, 
+        },
+        enrolled_at: moment(enrollment.enrolled_at).tz(clientTimezone).format('YYYY-MM-DD, HH:mm:ss'),
+      })),
+    }));
+
+    res.json({
+      users: usersData,
+      message: "All users data retrieved successfully."
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "Internal server error.",
+      details: error.message
+    });
+  }
+};
+
+
 module.exports = {
   createUser,
   getUser,
+  getAllUsers 
 };
