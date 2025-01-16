@@ -72,33 +72,33 @@ Para rodar este backend, você precisa ter:
     "email": "leticia@gmail.com",
     "created_at": "2025-01-15, 02:49:21",
     "enrollments": [
-        {
-            "id": 2,
-            "course": {
-                "id": 1,
-                "name": "Curso Frontend React"
-            },
-            "enrolled_at": "2025-01-15, 14:51:01"
-        },
-        {
-            "id": 1,
-            "course": {
-                "id": 1,
-                "name": "Curso Frontend React"
-            },
-            "enrolled_at": "2025-01-15, 14:47:20"
-        },
-        {
-            "id": 3,
-            "course": {
+            {
                 "id": 2,
-                "name": "Curso Desenvolvimento API com Node"
+                "course": {
+                    "id": 1,
+                    "name": "Curso Frontend React"
+                },
+                "enrolled_at": "2025-01-15, 14:51:01"
             },
-            "enrolled_at": "2025-01-15, 15:14:43"
-        }
-    ],
-    "message": "User data retrieved successfully."
-}
+            {
+                "id": 1,
+                "course": {
+                    "id": 1,
+                    "name": "Curso Frontend React"
+                },
+                "enrolled_at": "2025-01-15, 14:47:20"
+            },
+            {
+                "id": 3,
+                "course": {
+                    "id": 2,
+                    "name": "Curso Desenvolvimento API com Node"
+                },
+                "enrolled_at": "2025-01-15, 15:14:43"
+            }
+        ],
+        "message": "User data retrieved successfully."
+    }
     ```
 
 ### Cursos
