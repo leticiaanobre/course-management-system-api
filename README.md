@@ -23,7 +23,6 @@ Para rodar este backend, você precisa ter:
       DB_HOST=localhost
       DB_DIALECT=postgres
       PORT=5000
-      
 4. Rode o comando para criar o bando de dados `npx sequelize-cli db:create`
 5. Execute as migrações: `npm run migrate`
 6. Inicie o servidor com `npm run dev`
