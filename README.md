@@ -2,11 +2,28 @@
 
 Este é um sistema de gerenciamento de cursos desenvolvido com Node.js, Express e PostgreSQL.
 
+## Pré-requisitos
+
+Para rodar este backend, você precisa ter:
+
+1. **Node.js** instalado na máquina. [Download Node.js](https://nodejs.org/)
+2. **PostgreSQL** configurado, incluindo uma ferramenta de gerenciamento como o **pgAdmin** (opcional, mas recomendável).
+3. **npm** ou **yarn** como gerenciador de pacotes.
+
 ## Configuração
 
 1. Clone o repositório e entre na pasta do projeto usando o comando 'cd nome-da-pasta'
 2. Instale as dependências: `npm install`
-3. Configure as variáveis de ambiente no arquivo `.env`
+3. Configure as variáveis de ambiente no arquivo `.env` com as seguintes variaveis:
+
+   ```plaintext
+      DB_USERNAME=seu_username
+      DB_PASSWORD='sua_senha' 
+      DB_DATABASE=course_management
+      DB_HOST=localhost
+      DB_DIALECT=postgres
+      PORT=5000
+      
 4. Rode o comando para criar o bando de dados `npx sequelize-cli db:create`
 5. Execute as migrações: `npm run migrate`
 6. Inicie o servidor com `npm run dev`
